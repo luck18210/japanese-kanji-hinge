@@ -1,5 +1,5 @@
 # 連想漢字蝶番　Rensou Kanji Hinge 
-###  Try Rensou Kanji Hinge [HERE](https://callumbeaney.github.io/rensou-kanji-hinge/)
+###  Try Rensou Kanji Hinge [HERE](https://luck18210.web.app/japanese-kanji-hinge/)
 ### Try a Flutter rebuild with Chinese language functionality [HERE](https://github.com/luck18210/flutter-kanji-hanzi-chainer)  
   
 <br>  
