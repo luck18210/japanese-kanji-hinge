@@ -1,0 +1,372 @@
+/*  APP LAYOUT
+
+      ┌─┐ ┌─┐ <--- actionButton/s
+      │-│ └─┘
+      │-│ <------- div.outputboxes: button.kanjiList   
+      └─┘
+  ┌─┐ ┌─┐ ┌─┐ <--- div.newKanji: button.NKactionButton, button.newestKanji
+  └─┘ └─┘ └─┘
+  ┌─────────┐ 
+  ├─────────┤ <--- resultsbox/es
+  │         │ 
+  │         │ <--- canvas (defined in index.html)
+  │─────────┘
+  └─┘└─┘└─┘ <----- button.bottomButton 
+*/
+
+html, body {
+    height: 100%;
+    width:100%;
+    text-align:center;
+    font-family: Hiragino Kaku Gothic Pro, Hiragino Sans, Meiryo, sans-serif;
+    background-color:#ffffff;
+    display: flexbox;
+    margin-left:auto; 
+    margin-right:auto;
+}
+a { 
+    color:#f74040; 
+}
+
+
+
+/* __________________OUTPUT AREA TOP OF SCREEN__________________ */
+
+div.upperHalf {           
+    /* background-color:#ad8484; */
+    background-color:#ffffff;
+    display:flex;
+    height: 32vh;
+    padding-bottom: 2vh;
+    }
+    div.outputboxes {                   /* THE SCROLLABLE, VERTICAL LIST OF INPUTTED KANJI */
+        overflow-y: scroll;    
+        width:65%;
+        }
+        ::-webkit-scrollbar { 
+            display: none;  
+        } 
+        button.kanjiList {
+            margin:0 auto;
+            display:block;
+            border: none;
+            font-size: 1.4rem;
+            color: #666666;
+            background-color: #ededed;
+            text-align: center;
+            aspect-ratio: 1 / 1;
+            border:1px solid rgb(255, 255, 255);
+            padding: 2% 3%;
+        }
+
+
+div.actionButtons {                     /* THE ADMIN BUTTONS IN THE TOP CORNER OF THE SCREEN */
+    display: inline-table;
+    margin: 0 auto;
+    }
+    button.actionButton {
+        background-color: #666666;
+        margin: auto;
+        margin-top: 25%;
+        display:table;
+        border: hidden;
+        font-size: 1.4rem;
+        color: #ededed;
+        text-align: center !important;
+
+        aspect-ratio: 1 / 1;
+        /* ^keeps button to square when using flex */
+    }
+
+
+div.newKanji {                          /* THESE ARE THE 3 BUTTONS ABOVE THE CANVAS */
+    /* background-color:#e17272; */
+    background-color:#ffffff;
+    /* display:flexbox; */
+    width: 100%;
+    text-align: center;
+    justify-content: space-between;
+    }
+    button.NKactionButton {
+        font-size: 1.4rem;
+        border: hidden;
+        color: #ededed;
+        background-color: #666666;
+        text-align: center;
+        aspect-ratio: 1 / 1;
+        /* border:1px solid rgb(255, 255, 255); */
+    }
+    button.newestKanji {    
+        /* margin: auto; */
+        margin-bottom: 2%;
+        margin-left:8%;
+        margin-right:8%;
+        border: hidden;
+        color: #666666;
+        background-color: #ededed;
+        text-align: center;
+        aspect-ratio: 1 / 1;
+        padding:1% 3%;        
+        font-size: 3rem;
+    }
+
+
+
+
+/* __________________INPUT AREA BOTTOM OF SCREEN__________________ */
+
+
+#lowerHalf {           
+    /* background-color:#7ebe8e; */
+    }
+    div.resultsboxes {           
+        background-color:#ffffff;
+        display:flex;
+        height: auto;
+        width:auto;
+
+        /* TODO: decide on aesthetics below */
+            /* margin-top: 1%; */
+            /* padding-left: 5%;
+            padding-right: 5%; */
+            /* justify-content: space-between; */
+        }
+        button.resultbox {
+            border: none;
+            text-align: center;
+            aspect-ratio: 1 / 1;
+            font-size: 1.4rem;
+            margin:0.5%;
+            padding: 3.5%;
+            
+            /* THESE TWO ADJUST FOR BOTH IPHONE AND ANDROID LAYOUTS. DO NOT REMOVE MIN-WIDTH OR CHANGE THE FLEX SETTING */
+            flex: 1 1 0;
+            min-width: 0;
+        }
+            button.resultbox.startup {
+                color: #ededed;
+                background-color: #666666;
+            }
+            button.resultbox.raw {
+                color: #666666;
+                background-color: #ededed;
+            }
+            button.resultbox.pass {
+                color: #ffffff;
+                background-color: #1bc459;
+            }
+            button.resultbox.failure {
+                background-color: #f74040;
+                color: #f7f7f7;
+            }
+
+div.canvasButtons {
+    display: flex;
+    align-content: flex-start;
+}
+button.bottomButton {
+    /* margin:0 auto; */
+    display: inline-block;
+    border:#ffffff;
+    font-size: 1.0rem;
+    padding: 2% 3%;
+    margin: 1% 1% 0% 1%;
+    color: #ededed;
+    background-color: #666666;
+    text-align: center;
+}
+        
+
+
+    /* __________________ OVERLAY INFORMATION __________________ */
+
+
+#overlay {
+    position: fixed;  /* Sit on top of the page content     */
+    display: none;   /* Overlay is hidden by default       */
+    height: 100%;   /* Full height (cover the whole page) */
+    width: 100%;   /* Full width (cover the whole page)  */
+    top: 0;       /* Do not remove */
+    left: 0;     /* Do not remove */
+    right: 0;   /* Do not remove */
+    bottom: 0; /* Do not remove */
+    background-color: rgba(0,0,0,0.95);
+    overflow-y: auto; /* TODO: double-check */
+
+    }
+    #overlayText{                               /* THE HELP/ABOUT OVERLAY PAGE */
+        position:relative;
+        padding: 12%;
+        align-items: center;
+        text-align: justify; 
+        font-size: 1rem;
+        line-height: 1.4;
+        color: white;
+        }
+        .overlayInfo {                          /* THE KANJI INFO OVERLAY */       
+            display: block; 
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            text-align: center;
+            transform: translate(8%, 0%); /* This compensates for the offset to slightly centre it back */
+            -ms-transform: translate(8%, 0%);
+        }
+
+
+  .tg {                             /* _____________THE KANJIINFO() FUNCTION's TABLE INFO IN OVERLAY */
+    border-collapse:collapse;
+    border-spacing:0;
+    /* align-content: center; */
+    margin-left: auto;
+    margin-right: auto;
+    }
+    .tg td {
+        border-color: black;    
+        border-style: dotted;
+        border-width: 1px;        
+        }
+        .tg .tg-left {
+            border-color: inherit;      
+            text-align: middle;     
+            /* vertical-align: middle; */
+            font-size: 1.2rem;
+            padding: 3px 10px;
+        }
+        .tg .tg-right {
+            border-color: inherit;      
+            text-align: left;
+            /* vertical-align: middle; */
+            font-size: 1.1rem;
+            padding: 3px 5px 3px 10px;
+        }
+        .tg .tg-right.smalltext {
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+                                  
+fg:before {                              /* ____________FURIGANA INSIDE KANJI TABLE */
+    content: attr(t);                   /* Thanks to MysticWhiteDragon on SO for this furigana solution: */
+    display: block;                     /* https://stackoverflow.com/a/54324347 */
+    font-size: 50%;
+    text-align: start;
+    line-height: 1.2;
+}
+fg {
+    display: inline-block;
+    text-indent: 0px;
+    /* line-height: normal; */
+    text-align: center;
+    line-height: 1.1;
+} 
+
+
+
+/* ================== IPHONE SIZINGS ================== */
+
+    
+div.upperHalfIOS {           
+    background-color:#ffffff;
+    display:flex;
+    height: 25vh;
+    padding-bottom: 2vh;
+    }
+    button.kanjiListIOS {
+        margin:0 auto;
+        overflow-y: scroll;    
+        /* display:block; */
+        border: none;
+        color: #666666;
+        background-color: #ededed;
+        text-align: center;
+        border:1px solid rgb(255, 255, 255);
+        font-size: 1.6rem;
+        padding: 3% 4%;
+    }
+
+button.actionButtonIOS {
+    margin-top: 25%;
+    display:flex;
+    border: hidden;
+    font-size: 1.4rem;
+    /* padding:auto; */
+    padding: 30% 45%;
+    background-color: #666666;
+    color: #ededed;
+}
+
+button.newestKanjiIOS {
+    margin-bottom: 1%;
+    margin-left:8%;
+    margin-right:8%;
+    border: hidden;
+    color: #666666;
+    background-color: #ededed;
+    text-align: center;
+    font-size: 3rem;
+    padding:1% 2%;
+}
+button.NKactionButtonIOS {
+    /* vertical-align:top; TODO: DECIDE UPON */
+    font-size: 1.5rem;
+    border: hidden;
+    color: #ededed;
+    background-color: #666666;
+    text-align: center;
+    padding: 2% 3%;
+}
+
+button.resultboxIOS {
+    border: none;
+    text-align: center;
+    font-size: 1.7rem;
+    margin:0.5%;    
+    padding: 3.5%;
+    /* THESE TWO ADJUST FOR BOTH IPHONE AND ANDROID LAYOUTS. DO NOT REMOVE MIN-WIDTH OR CHANGE THE FLEX SETTING */
+    flex: 1 1 0;
+    min-width: 0;
+    }
+    button.resultboxIOS.startup {
+        color: #ededed;
+        background-color: #666666;
+    }
+    button.resultboxIOS.raw {
+        color: #666666;
+        background-color: #ededed;
+    }
+    button.resultboxIOS.pass {
+        color: #ffffff;
+        background-color: #1bc459;
+    }
+    button.resultboxIOS.failure {
+        background-color: #f74040;
+        color: #f7f7f7;
+    }
+
+    
+
+/* TODO: refine sizing */
+
+@media only screen and (min-width: 480px) 
+{
+    .appframe {
+        padding: 0% 20%;
+        /* background-color:#f74040;  */
+    }
+}
+
+@media only screen and (min-width: 650px) 
+{
+    .appframe {
+        padding: 0% 25%;
+        /* background-color: #1bc459; */
+    }
+}
+
+@media only screen and (min-width: 800px) 
+{
+    .appframe {
+        padding: 0% 35%;
+        /* background-color: #1bc459; */
+    }
+}

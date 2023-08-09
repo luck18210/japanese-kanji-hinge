@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="./src/style.css">
+        <title>Rensou Kanji Hinge</title>
+    </head>
+
+<!-- APP LAYOUT
+      ┌─┐ ┌─┐ <--- actionButton/s
+      │-│ └─┘
+      │-│ <------- div.outputboxes: button.kanjiList   
+      └─┘
+  ┌─┐ ┌─┐ ┌─┐ <--- div.newKanji: button.NKactionButton, button.newestKanji
+  └─┘ └─┘ └─┘
+  ┌─────────┐ 
+  ├─────────┤ <--- resultsbox/es
+  │         │ 
+  │         │ <--- canvas (defined in index.html)
+  │─────────┘
+  └─┘└─┘└─┘ <----- button.bottomButton  
+-->
+
+    <body>
+
+
+        <div id="overlay" onclick="turnOverlayOff();">      <!-- This is for a popup overlay -->
+                <div id="overlayText"></div>
+        </div>
+
+
+        <div class="appframe">                
+
+        <!--TOP HALF OF SCREEN -->
+            <div class="upperHalf" id="upperHalf">
+
+            <!-- TOP LEFT (HIDDEN) -->
+                <div class="actionButtons"> 
+                    <button class="actionButton" id="hiddenButton" style="visibility:hidden">・</button> 
+                </div>
+
+            <!-- TOP MIDDLE COLUMN -->
+                <div class=outputboxes id = outputboxes> 
+                    <button class="kanjiList" onclick="kanjiInfo(this.innerHTML)">連</button>
+                    <button class="kanjiList" onclick="kanjiInfo(this.innerHTML)">想</button>
+                    <button class="kanjiList" onclick="kanjiInfo(this.innerHTML)">漢</button>
+                    <button class="kanjiList" onclick="kanjiInfo(this.innerHTML)">字</button>
+                    <button class="kanjiList" onclick="kanjiInfo(this.innerHTML)">蝶</button>
+                    <button class="kanjiList" onclick="kanjiInfo(this.innerHTML)">番</button>
+                </div>
+
+            <!-- TOP RIGHT BUTTONS -->
+                <div class="actionButtons">
+                    <!-- <button class="actionButton" id="outputButton" onclick="outputList('send');">〒</button> -->
+                    <button class="actionButton" id="copyButton" onclick="outputList('copy');">写</button>
+                    <button class="actionButton" style="text-align:center;" id="helpButton" onclick="help();">何</button>
+                </div>
+
+            </div>
+
+        <!-- 3 MIDDLE BUTTONS -->
+            <div class="newKanji" id="newKanji">
+                <button class="NKactionButton" id="commaButton" onclick="submitKanji(this.innerHTML, this.id);">、</button>
+                <button class="newestKanji"    id="nk"          onclick="kanjiInfo(this.innerHTML, 'browser');">　</button>
+                <button class="NKactionButton" id="stopButton"  onclick="submitKanji(this.innerHTML, this.id);">。</button>
+            </div>  
+
+
+    <!--BOTTOM HALF OF SCREEN -->
+
+            <!-- MIDDLE 6 BUTTONS -->
+            <div class="resultsboxes" id="resultsBoxes">
+                <button class="resultbox startup" id="rb5" onclick="submitKanji(this.innerHTML, this.id)">漢</button>              
+                <button class="resultbox startup" id="rb4" onclick="submitKanji(this.innerHTML, this.id)">字</button>             
+                <button class="resultbox startup" id="rb3" onclick="submitKanji(this.innerHTML, this.id)">を</button>        
+                <button class="resultbox startup" id="rb2" onclick="submitKanji(this.innerHTML, this.id)">書</button>        
+                <button class="resultbox startup" id="rb1" onclick="submitKanji(this.innerHTML, this.id)">い</button>         
+                <button class="resultbox startup" id="rb0" onclick="submitKanji(this.innerHTML, this.id)">て</button>
+            </div>
+
+            <!-- CANVAS -->
+            <div class="outer">
+                <canvas id="canvas" style="border: 2px solid; cursor: crosshair; text-align: center; display:none"></canvas>
+            </div>
+
+
+            <!-- BOTTOM BUTTONS (BELOW CANVAS) -->
+            <div class="canvasButtons" id="canvasButtons">
+                <button class="bottomButton" id="eraseButton" onclick="resetColours(); canvas.erase();">消去</button>
+                <button class="bottomButton" id="sendButton"  onclick="resetColours(); canvas.recognize();">送信</button>   
+                <button class="bottomButton" id="undoButton"  onclick="resetColours(); canvas.undo();">取消</button>
+            </div>
+
+        </div>
+
+    <!-- CODE INSERTIONS -->
+            
+        <script type = "text/javascript" src="./src/OSsetup.js"></script>
+        <script type = "text/javascript" src="./src/helpers.js"></script> <!-- Order is important: helpers.js must go first as it handles GUI appearance in the OS checking function -->
+        <script type = "text/javascript" src="./src/handwriting API/handwriting.canvas.js"></script>
+        <script type = "text/javascript" src="./src/canvasSetup.js"></script> <!-- This configures the handwriting canvas and hooks the API into the HTML Canvas on line 81-->
+        <script type = "text/javascript" src="./src/minifiedDictionary.js"></script>  
+            
+    </body>
+</html>
